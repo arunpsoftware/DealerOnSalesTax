@@ -5,11 +5,12 @@
 }
 
 <div class="text-center">
+    <button id="submitButton">Complete Purchase</button>
     <input type="text" id="nameInput" placeholder="Name">
 
     <div>
         <label for="category">Category:</label>
-        @Html.DropDownList("Category", Model.Categories as SelectList, new { id = "categoryDropdown" })
+        @Html.DropDownList("Category", Model.Categories as SelectList, new { id = "categoryInput" })
     </div>
 
     <input type="checkbox" id="importedInput"> Imported
@@ -32,11 +33,11 @@
             @foreach (var item in Model.OrderItems)
             {
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Category</td>
-                    <td>@(item.IsImported ? "Yes" : "No")</td>
-                    <td>@item.Price</td>
-                    <td>@item.Quantity</td>
+                    <td class="itemName">@item.Name</td>
+                    <td class="itemCategory">@item.Category</td>
+                    <td class="itemImported">@(item.IsImported ? "Yes" : "No")</td>
+                    <td class="itemPrice">@item.Price</td>
+                    <td class="itemQuantity">@item.Quantity</td>
                     <td><button class="deleteButton">Delete</button></td>
                 </tr>
             }
@@ -50,7 +51,7 @@
         $('#addButton').click(function () {
             // Get the values from the input fields
             var name = $('#nameInput').val();
-            var category = $('#categoryDropdown option:selected').text();
+            var category = $('#categoryInput option:selected').text();
             var isImported = $('#importedInput').is(':checked');
             var price = $('#priceInput').val();
             var quantity = $('#quantityInput').val(); // Get the selected value
@@ -70,7 +71,7 @@
 
             // Clear the input fields
             $('#nameInput').val('');
-            $('#categoryInput').val('');
+            $('#categoryInput').val('0');
             $('#importedInput').prop('checked', false);
             $('#priceInput').val('');
             $('#quantityInput').val('');
@@ -78,6 +79,40 @@
 
         $(document).on('click', '.deleteButton', function () {
             $(this).closest('tr').remove();
+        });
+
+        $('#submitButton').click(function () {
+            var tableData = [];
+
+            // Iterate over each table row
+            $('#itemTable tbody tr').each(function () {
+                var rowData = {
+                    name: $(this).find('.itemName').text(),
+                    category: $(this).find('.itemCategory').val(),
+                    isImported: $(this).find('.itemImported').prop('checked'),
+                    price: $(this).find('.itemPrice').val(),
+                    quantity: $(this).find('.itemQuantity').val()
+                };
+
+                tableData.push(rowData);
+            });
+
+            console.log(tableData);
+
+            // Send the data to the backend
+            $.ajax({
+                url: '/HomeController/GetReceipt',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({ tableData: tableData }),
+                success: function (response) {
+                    // Handle the response from the backend
+                },
+                error: function (xhr, status, error) {
+                    // Handle any errors
+                }
+            });
         });
     });
 </script>
