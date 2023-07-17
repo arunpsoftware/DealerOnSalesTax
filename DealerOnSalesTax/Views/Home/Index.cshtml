@@ -82,6 +82,17 @@
             $(this).val(value);
         });
 
+        $('#quantityInput').on('input', function () {
+            // Get the entered value
+            var value = $(this).val();
+
+            // Remove any non-digit characters
+            value = value.replace(/\D/g, '');
+
+            // Update the input value
+            $(this).val(value);
+        });
+
         $('#addButton').click(function () {
             // Get the values from the input fields
             var name = $('#nameInput').val();
