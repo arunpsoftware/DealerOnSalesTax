@@ -5,50 +5,48 @@
 }
 
 <div id="contentDiv">
-    <div id="cartDiv">
-        <div id="addActionsDiv">
-            <input class="input" type="text" id="nameInput" placeholder="Name">
-            <div>
-                <label for="category">Category:</label>
-                @Html.DropDownList("Category", Model.Categories as SelectList, new { @id = "categoryInput", @class = "input" })
-            </div>
-
-            <div id="checkboxDiv">
-                Imported: <input class="input" type="checkbox" id="importedInput">
-            </div>
-            <input class="input" type="text" id="priceInput" placeholder="Price">
-            <input class="input" type="text" id="quantityInput" placeholder="Quantity">
-            <button id="addButton" class="button" disabled>Add to Cart</button>
-            <button id="submitButton" class="button">Complete Purchase</button>
+    <div id="addActionsDiv">
+        <input class="input" type="text" id="nameInput" placeholder="Name">
+        <div>
+            <label for="category">Category:</label>
+            @Html.DropDownList("Category", Model.Categories as SelectList, new { @id = "categoryInput", @class = "input" })
         </div>
-        <table id="itemTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Imported</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.CartItems)
-                {
-                    <tr>
-                        <td class="itemName">@item.Name</td>
-                        <td class="itemCategory">@item.Category</td>
-                        <td class="itemImported">@(item.IsImported ? "Yes" : "No")</td>
-                        <td class="itemPrice">@item.Price</td>
-                        <td class="itemQuantity">@item.Quantity</td>
-                        <td><button class="button deleteButton">Delete</button></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        Receipt:
-        <input id="receiptTextField" type="text" readonly />
+
+        <div id="checkboxDiv">
+            Imported: <input class="input" type="checkbox" id="importedInput">
+        </div>
+        <input class="input" type="text" id="priceInput" placeholder="Price">
+        <input class="input" type="text" id="quantityInput" placeholder="Quantity">
+        <button id="addButton" class="button" disabled>Add to Cart</button>
+        <button id="submitButton" class="button">Complete Purchase</button>
     </div>
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Imported</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td class="itemName">@item.Name</td>
+                    <td class="itemCategory">@item.Category</td>
+                    <td class="itemImported">@(item.IsImported ? "Yes" : "No")</td>
+                    <td class="itemPrice">@item.Price</td>
+                    <td class="itemQuantity">@item.Quantity</td>
+                    <td><button class="button deleteButton">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    Receipt:
+    <input id="receiptTextField" type="text" readonly />
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
