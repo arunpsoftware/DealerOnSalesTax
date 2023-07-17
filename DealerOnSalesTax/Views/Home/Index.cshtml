@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.OrderItems)
+                @foreach (var item in Model.CartItems)
                 {
                     <tr>
                         <td class="itemName">@item.Name</td>
@@ -167,7 +167,7 @@
         });
 
         $('#submitButton').click(function () {
-            var orderItems = [];
+            var cartItems = [];
 
             // Iterate over each table row
             $('#itemTable tbody tr').each(function () {
@@ -178,7 +178,7 @@
                     isImportedBool = false;
                 }
 
-                var orderItem = {
+                var cartItem = {
                     name: $(this).find('.itemName').text(),
                     category: $(this).find('.itemCategory').text(),
                     isImported: isImportedBool,
@@ -186,7 +186,7 @@
                     quantity: parseInt($(this).find('.itemQuantity').text())
                 };
 
-                orderItems.push(orderItem);
+                cartItems.push(cartItem);
             });
 
             // Send the data to the backend
@@ -195,7 +195,7 @@
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: JSON.stringify({ orderItems: orderItems }),
+                data: JSON.stringify({ cartItems: cartItems }),
                 success: function (response) {
                     // Handle the response from the backend
                 },

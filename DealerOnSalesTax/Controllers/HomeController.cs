@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using DealerOnSalesTax.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Text.Json;
 
 namespace DealerOnSalesTax.Controllers;
 
@@ -18,7 +17,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var model = new IndexViewModel();
-        model.OrderItems = new List<OrderItem>();
+        model.CartItems = new List<CartItem>();
 
         model.Categories = new SelectList(new[]
         {
@@ -28,14 +27,14 @@ public class HomeController : Controller
             new SelectListItem { Value = "3", Text = "Medical" },
         }, "Value", "Text");
 
-        OrderItem oi = new OrderItem();
-        oi.Name = "Name1";
-        oi.Category = "Food";
-        oi.IsImported = true;
-        oi.Price = 4.69;
-        oi.Quantity = 2;
+        CartItem ci = new CartItem();
+        ci.Name = "Name1";
+        ci.Category = "Food";
+        ci.IsImported = true;
+        ci.Price = 4.69;
+        ci.Quantity = 2;
 
-        model.OrderItems.Add(oi);
+        model.CartItems.Add(ci);
 
         return View(model);
     }
@@ -43,6 +42,10 @@ public class HomeController : Controller
     [HttpPost]
     public ActionResult GetReceipt([FromBody] IndexViewModel model)
     {
+        var order = new OrderModel(model.CartItems);
+
+        model.Receipt = order.GetReceipt();
+
         return View("Index");
     }
 

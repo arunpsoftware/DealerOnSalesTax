@@ -5,12 +5,12 @@ namespace DealerOnSalesTax.Models
 {
 	public class IndexViewModel
 	{
-		public List<OrderItem> OrderItems { get; set; }
+		public List<CartItem> CartItems { get; set; }
 		public SelectList Categories { get; set; }
 		public string Receipt { get; set; }
 	}
 
-	public class OrderItem
+	public class CartItem
 	{
 		public string Name { get; set; }
 		public string Category { get; set; }
