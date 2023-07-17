@@ -4,45 +4,53 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <button id="submitButton">Complete Purchase</button>
-    <input type="text" id="nameInput" placeholder="Name">
+<div id="contentDiv">
+    <div id="cartDiv">
+        <div id="addActionsDiv">
+            <input class="input" type="text" id="nameInput" placeholder="Name">
+            <div>
+                <label for="category">Category:</label>
+                @Html.DropDownList("Category", Model.Categories as SelectList, new { @id = "categoryInput", @class = "input" })
+            </div>
 
-    <div>
-        <label for="category">Category:</label>
-        @Html.DropDownList("Category", Model.Categories as SelectList, new { id = "categoryInput" })
-    </div>
-
-    <input type="checkbox" id="importedInput"> Imported
-    <input type="text" id="priceInput" placeholder="Price">
-    <input type="text" id="quantityInput" placeholder="Quantity">
-    <button id="addButton">Add</button>
-
-    <table id="itemTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Imported</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderItems)
-            {
+            <div id="checkboxDiv">
+                Imported: <input class="input" type="checkbox" id="importedInput">
+            </div>
+            <input class="input" type="text" id="priceInput" placeholder="Price">
+            <input class="input" type="text" id="quantityInput" placeholder="Quantity">
+        </div>
+        <div id="actionButtonsDiv">
+            <button id="addButton" class="button">Add to Cart</button>
+            <button id="submitButton" class="button">Complete Purchase</button>
+        </div>
+        <table id="itemTable">
+            <thead>
                 <tr>
-                    <td class="itemName">@item.Name</td>
-                    <td class="itemCategory">@item.Category</td>
-                    <td class="itemImported">@(item.IsImported ? "Yes" : "No")</td>
-                    <td class="itemPrice">@item.Price</td>
-                    <td class="itemQuantity">@item.Quantity</td>
-                    <td><button class="deleteButton">Delete</button></td>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Imported</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td class="itemName">@item.Name</td>
+                        <td class="itemCategory">@item.Category</td>
+                        <td class="itemImported">@(item.IsImported ? "Yes" : "No")</td>
+                        <td class="itemPrice">@item.Price</td>
+                        <td class="itemQuantity">@item.Quantity</td>
+                        <td><button class="button deleteButton">Delete</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div id="receiptDiv">
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -63,7 +71,7 @@
                 '<td>' + (isImported ? "Yes" : "No") + '</td>' +
                 '<td>' + price + '</td>' +
                 '<td>' + quantity + '</td>' +
-                '<td><button class="deleteButton">Delete</button></td>' +
+                '<td><button class="button deleteButton">Delete</button></td>' +
                 '</tr>';
 
             // Append the new row to the table body
