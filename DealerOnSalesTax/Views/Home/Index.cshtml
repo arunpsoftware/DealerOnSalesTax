@@ -18,8 +18,6 @@
             </div>
             <input class="input" type="text" id="priceInput" placeholder="Price">
             <input class="input" type="text" id="quantityInput" placeholder="Quantity">
-        </div>
-        <div id="actionButtonsDiv">
             <button id="addButton" class="button" disabled>Add to Cart</button>
             <button id="submitButton" class="button">Complete Purchase</button>
         </div>
@@ -48,9 +46,8 @@
                 }
             </tbody>
         </table>
-    </div>
-    <div id="receiptDiv">
-        @Model.Receipt
+        Receipt:
+        <input id="receiptTextField" type="text" readonly />
     </div>
 </div>
 
@@ -198,7 +195,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify({ cartItems: cartItems }),
                 success: function (response) {
-                    $('#receiptDiv').text(response.receipt);
+                    $('#receiptTextField').val(response.receipt)
                 },
                 error: function (xhr, status, error) {
                     // Handle any errors
