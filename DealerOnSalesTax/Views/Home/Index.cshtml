@@ -20,7 +20,7 @@
             <input class="input" type="text" id="quantityInput" placeholder="Quantity">
         </div>
         <div id="actionButtonsDiv">
-            <button id="addButton" class="button">Add to Cart</button>
+            <button id="addButton" class="button" disabled>Add to Cart</button>
             <button id="submitButton" class="button">Complete Purchase</button>
         </div>
         <table id="itemTable">
@@ -93,6 +93,27 @@
             $(this).val(value);
         });
 
+        // Function to check if all inputs are filled out
+        function checkInputs() {
+            var input1Value = $('#nameInput').val().trim();
+            var input2Value = $('#priceInput').val().trim();
+            var input3Value = $('#quantityInput').val().trim();
+
+            if (input1Value !== '' && input2Value !== '' && input3Value !== '') {
+                $('#addButton').prop('disabled', false);
+            } else {
+                $('#addButton').prop('disabled', true);
+            }
+        }
+
+        // Attach input event listeners to check inputs on change
+        $('#nameInput, #priceInput, #quantityInput').on('input', function () {
+            checkInputs();
+        });
+
+        // Check inputs on page load
+        checkInputs();
+
         $('#addButton').click(function () {
             // Get the values from the input fields
             var name = $('#nameInput').val();
@@ -120,6 +141,9 @@
             $('#importedInput').prop('checked', false);
             $('#priceInput').val('');
             $('#quantityInput').val('');
+
+            // Disable the button
+            $(this).prop('disabled', true);
         });
 
         $(document).on('click', '.deleteButton', function () {
