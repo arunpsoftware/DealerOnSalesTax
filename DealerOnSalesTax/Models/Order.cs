@@ -21,7 +21,7 @@ namespace DealerOnSalesTax.Models
 
             }
 
-			return "";
+			return "Hello";
         }
 
 		private void createOrderItemsFromCartItems()

@@ -1,5 +1,4 @@
-﻿using System;
-namespace DealerOnSalesTax.Models
+﻿namespace DealerOnSalesTax.Models
 {
 	public class OrderItem
     {
@@ -25,6 +24,10 @@ namespace DealerOnSalesTax.Models
             Quantity = quantity;
         }
 
+        /* We would want to map specific categories to basic sales tax,
+         * but for the purpose of this app, anything that isn't "Uncategorized"
+         * is a category that requires basic sales tax.
+         */
         private bool DoesCategoryHaveBasicSalesTax()
         {
             return !Category.Equals("Uncategorized");

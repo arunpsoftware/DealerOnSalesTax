@@ -50,6 +50,7 @@
         </table>
     </div>
     <div id="receiptDiv">
+        @Model.Receipt
     </div>
 </div>
 
@@ -197,7 +198,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify({ cartItems: cartItems }),
                 success: function (response) {
-                    // Handle the response from the backend
+                    $('#receiptDiv').text(response.receipt);
                 },
                 error: function (xhr, status, error) {
                     // Handle any errors
