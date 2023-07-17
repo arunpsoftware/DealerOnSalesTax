@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace DealerOnSalesTax.Models
@@ -49,18 +50,20 @@ namespace DealerOnSalesTax.Models
                     taxAmount += getTaxAmount(individualItemPrice, _importTaxMultiplier, _roundingMultiplier);
                 }
 
-                individualItemPrice += taxAmount;
+                individualItemPrice = Math.Round(individualItemPrice += taxAmount, 2);
                 double priceForAllItems = individualItemPrice * quantity;
 
                 _totalSalesTax += taxAmount * quantity;
                 _totalOrderPrice += priceForAllItems;
 
-                receipt.AppendLine($"{name}: {priceForAllItems}");
+                string receiptLine = $"{name}: {priceForAllItems}";
 
                 if (quantity > 1)
                 {
-                    receipt.Append($" ({quantity} @ {individualItemPrice})");
+                    receiptLine += $" ({quantity} @ {individualItemPrice})";
                 }
+
+                receipt.AppendLine(receiptLine);
             }
 
             receipt.AppendLine($"Sales Taxes: {_totalSalesTax}");

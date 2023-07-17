@@ -20,6 +20,7 @@
         <button id="addButton" class="button" disabled>Add to Cart</button>
         <button id="submitButton" class="button">Complete Purchase</button>
     </div>
+    Cart:
     <table id="itemTable">
         <thead>
             <tr>
@@ -46,7 +47,7 @@
         </tbody>
     </table>
     Receipt:
-    <input id="receiptTextField" type="text" readonly />
+    <textarea id="receiptTextArea"></textarea>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -193,7 +194,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify({ cartItems: cartItems }),
                 success: function (response) {
-                    $('#receiptTextField').val(response.receipt)
+                    $('#receiptTextArea').val(response.receipt)
                 },
                 error: function (xhr, status, error) {
                     // Handle any errors
