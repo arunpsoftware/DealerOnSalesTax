@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
+/* Simple viewmodel to handle data the frontend needs
+ * to read and write.
+ */
 namespace DealerOnSalesTax.Models
 {
 	public class IndexViewModel

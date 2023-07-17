@@ -24,9 +24,9 @@
             Quantity = quantity;
         }
 
-        /* We would want to map specific categories to basic sales tax,
-         * but for the purpose of this app, anything that isn't "Uncategorized"
-         * is a category that's exempt.
+        /* We would want to map specific categories to specific taxes
+         * (and maybe use enums) but for the purpose of this app,
+         * anything that isn't "Uncategorized" is a category that's exempt.
          */
         private bool DoesCategoryHaveBasicSalesTax()
         {

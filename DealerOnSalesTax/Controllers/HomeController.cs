@@ -21,6 +21,17 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    /// <summary>
+    /// Receive a list of cart items (bound to viewmodel).
+    /// </summary>
+    /// <param name="model">IndexViewModel</param>
+    /// <returns>JSON object with receipt.</returns>
     [HttpPost]
     public IActionResult GetReceipt([FromBody] IndexViewModel model)
     {
@@ -30,12 +41,10 @@ public class HomeController : Controller
         return Json(model);
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
+    /// <summary>
+    /// Create our view model and populate the list of item categories.
+    /// </summary>
+    /// <returns>The viewmodel to display on the homepage.</returns>
     private IndexViewModel initModel()
     {
         var model = new IndexViewModel();
