@@ -19,21 +19,13 @@ public class HomeController : Controller
     {
         var model = initModel();
 
-        CartItem ci = new CartItem();
-        ci.Name = "Name1";
-        ci.Category = "Food";
-        ci.IsImported = true;
-        ci.Price = 4.69;
-        ci.Quantity = 2;
-        model.CartItems.Add(ci);
-
         return View(model);
     }
 
     [HttpPost]
     public IActionResult GetReceipt([FromBody] IndexViewModel model)
     {
-        var order = new OrderModel(model.CartItems);
+        var order = new Order(model.CartItems);
         model.Receipt = order.GetReceipt();
 
         return Json(model);
@@ -56,6 +48,7 @@ public class HomeController : Controller
             new SelectListItem { Value = "2", Text = "Food" },
             new SelectListItem { Value = "3", Text = "Medical" },
         }, "Value", "Text");
+
         return model;
     }
 }
