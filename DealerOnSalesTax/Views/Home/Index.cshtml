@@ -48,33 +48,15 @@
         $('#addButton').click(function () {
             // Get the values from the input fields
             var name = $('#nameInput').val();
+            var category = $('#categoryDropdown option:selected').text();
             var isImported = $('#importedInput').is(':checked');
             var price = $('#priceInput').val();
-            var quantity = $('#quantityInput').val();
-
-            var selectedCategory = $('#categoryDropdown').val(); // Get the selected value
-
-            // Map the selected value to text
-            var categoryText;
-            switch (selectedCategory) {
-                case '1':
-                    categoryText = 'Book';
-                    break;
-                case '2':
-                    categoryText = 'Food';
-                    break;
-                case '3':
-                    categoryText = 'Medical';
-                    break;
-                default:
-                    categoryText = 'Uncategorized';
-                    break;
-            }
+            var quantity = $('#quantityInput').val(); // Get the selected value
 
             // Create a new row with the input values
             var newRow = '<tr>' +
                 '<td>' + name + '</td>' +
-                '<td>' + categoryText + '</td>' +
+                '<td>' + category + '</td>' +
                 '<td>' + (isImported ? "Yes" : "No") + '</td>' +
                 '<td>' + price + '</td>' +
                 '<td>' + quantity + '</td>' +
