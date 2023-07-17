@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DealerOnSalesTax.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DealerOnSalesTax.Controllers;
 
@@ -15,7 +16,27 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var model = new IndexViewModel();
+        model.OrderItems = new List<OrderItem>();
+
+        model.Categories = new SelectList(new[]
+        {
+            new SelectListItem { Value = "0", Text = "Uncategorized" },
+            new SelectListItem { Value = "1", Text = "Book" },
+            new SelectListItem { Value = "2", Text = "Food" },
+            new SelectListItem { Value = "3", Text = "Medical" },
+        }, "Value", "Text");
+
+        OrderItem oi = new OrderItem();
+        oi.Name = "Name1";
+        oi.Category = "Food";
+        oi.IsImported = true;
+        oi.Price = 4.69;
+        oi.Quantity = 2;
+
+        model.OrderItems.Add(oi);
+
+        return View(model);
     }
 
     public IActionResult Privacy()

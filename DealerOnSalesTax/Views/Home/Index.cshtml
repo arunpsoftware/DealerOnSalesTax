@@ -1,9 +1,94 @@
-﻿@{
+﻿@model IndexViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <input type="text" id="nameInput" placeholder="Name">
+
+    <div>
+        <label for="category">Category:</label>
+        @Html.DropDownList("Category", Model.Categories as SelectList, new { id = "categoryDropdown" })
+    </div>
+
+    <input type="checkbox" id="importedInput"> Imported
+    <input type="text" id="priceInput" placeholder="Price">
+    <input type="text" id="quantityInput" placeholder="Quantity">
+    <button id="addButton">Add</button>
+
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Imported</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Category</td>
+                    <td>@(item.IsImported ? "Yes" : "No")</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#addButton').click(function () {
+            // Get the values from the input fields
+            var name = $('#nameInput').val();
+            var isImported = $('#importedInput').is(':checked');
+            var price = $('#priceInput').val();
+            var quantity = $('#quantityInput').val();
+
+            var selectedCategory = $('#categoryDropdown').val(); // Get the selected value
+
+            // Map the selected value to text
+            var categoryText;
+            switch (selectedCategory) {
+                case '1':
+                    categoryText = 'Book';
+                    break;
+                case '2':
+                    categoryText = 'Food';
+                    break;
+                case '3':
+                    categoryText = 'Medical';
+                    break;
+                default:
+                    categoryText = 'Uncategorized';
+                    break;
+            }
+
+            // Create a new row with the input values
+            var newRow = '<tr>' +
+                '<td>' + name + '</td>' +
+                '<td>' + categoryText + '</td>' +
+                '<td>' + (isImported ? "Yes" : "No") + '</td>' +
+                '<td>' + price + '</td>' +
+                '<td>' + quantity + '</td>' +
+                '</tr>';
+
+            // Append the new row to the table body
+            $('#itemTable tbody').append(newRow);
+
+            // Clear the input fields
+            $('#nameInput').val('');
+            $('#categoryInput').val('');
+            $('#importedInput').prop('checked', false);
+            $('#priceInput').val('');
+            $('#quantityInput').val('');
+        });
+    });
+</script>

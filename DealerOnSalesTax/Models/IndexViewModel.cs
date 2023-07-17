@@ -6,7 +6,7 @@ namespace DealerOnSalesTax.Models
 	public class IndexViewModel
 	{
 		public List<OrderItem> OrderItems { get; set; }
-		public List<SelectListItem> Categories { get; set; }
+		public SelectList Categories { get; set; }
 		public string Receipt { get; set; }
 	}
 
