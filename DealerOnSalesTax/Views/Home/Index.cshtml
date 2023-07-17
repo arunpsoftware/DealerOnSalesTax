@@ -119,8 +119,26 @@
             var name = $('#nameInput').val();
             var category = $('#categoryInput option:selected').text();
             var isImported = $('#importedInput').is(':checked');
-            var price = $('#priceInput').val();
             var quantity = $('#quantityInput').val(); // Get the selected value
+
+            var price = $('#priceInput').val();
+
+            console.log(price);
+
+            // Format price.
+            if (price === '') {
+                price = '0.00';
+            } else if (price.charAt(0) === '.') {
+                price = '0' + price;
+            }
+
+            if (price.indexOf('.') === -1) {
+                price += '.00';
+            } else if (price.split('.')[1].length === 1) {
+                price += '0';
+            } else if (price.charAt(price.length - 1) === '.') {
+                price += '00';
+            }
 
             // Create a new row with the input values
             var newRow = '<tr>' +
