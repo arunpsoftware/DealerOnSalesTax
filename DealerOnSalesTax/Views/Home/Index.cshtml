@@ -123,8 +123,6 @@
 
             var price = $('#priceInput').val();
 
-            console.log(price);
-
             // Format price.
             if (price === '') {
                 price = '0.00';
@@ -142,11 +140,11 @@
 
             // Create a new row with the input values
             var newRow = '<tr>' +
-                '<td>' + name + '</td>' +
-                '<td>' + category + '</td>' +
-                '<td>' + (isImported ? "Yes" : "No") + '</td>' +
-                '<td>' + price + '</td>' +
-                '<td>' + quantity + '</td>' +
+                '<td class="itemName">' + name + '</td>' +
+                '<td class="itemCategory">' + category + '</td>' +
+                '<td class="itemImported">' + (isImported ? "Yes" : "No") + '</td>' +
+                '<td class="itemPrice">' + price + '</td>' +
+                '<td class="itemQuantity">' + quantity + '</td>' +
                 '<td><button class="button deleteButton">Delete</button></td>' +
                 '</tr>';
 
@@ -169,30 +167,35 @@
         });
 
         $('#submitButton').click(function () {
-            var tableData = [];
+            var orderItems = [];
 
             // Iterate over each table row
             $('#itemTable tbody tr').each(function () {
-                var rowData = {
+                var isImportedBool;
+                if ($(this).find('.itemImported').text().toUpperCase() === "YES") {
+                    isImportedBool = true;
+                } else {
+                    isImportedBool = false;
+                }
+
+                var orderItem = {
                     name: $(this).find('.itemName').text(),
-                    category: $(this).find('.itemCategory').val(),
-                    isImported: $(this).find('.itemImported').prop('checked'),
-                    price: $(this).find('.itemPrice').val(),
-                    quantity: $(this).find('.itemQuantity').val()
+                    category: $(this).find('.itemCategory').text(),
+                    isImported: isImportedBool,
+                    price: parseFloat($(this).find('.itemPrice').text()),
+                    quantity: parseInt($(this).find('.itemQuantity').text())
                 };
 
-                tableData.push(rowData);
+                orderItems.push(orderItem);
             });
-
-            console.log(tableData);
 
             // Send the data to the backend
             $.ajax({
-                url: '/HomeController/GetReceipt',
+                url: '/Home/GetReceipt',
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: JSON.stringify({ tableData: tableData }),
+                data: JSON.stringify({ orderItems: orderItems }),
                 success: function (response) {
                     // Handle the response from the backend
                 },

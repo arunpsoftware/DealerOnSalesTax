@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DealerOnSalesTax.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
 
 namespace DealerOnSalesTax.Controllers;
 
@@ -37,6 +38,12 @@ public class HomeController : Controller
         model.OrderItems.Add(oi);
 
         return View(model);
+    }
+
+    [HttpPost]
+    public ActionResult GetReceipt([FromBody] IndexViewModel model)
+    {
+        return View("Index");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
