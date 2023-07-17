@@ -25,6 +25,7 @@
                 <th>Imported</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
                     <td>@(item.IsImported ? "Yes" : "No")</td>
                     <td>@item.Price</td>
                     <td>@item.Quantity</td>
+                    <td><button class="deleteButton">Delete</button></td>
                 </tr>
             }
         </tbody>
@@ -60,6 +62,7 @@
                 '<td>' + (isImported ? "Yes" : "No") + '</td>' +
                 '<td>' + price + '</td>' +
                 '<td>' + quantity + '</td>' +
+                '<td><button class="deleteButton">Delete</button></td>' +
                 '</tr>';
 
             // Append the new row to the table body
@@ -71,6 +74,10 @@
             $('#importedInput').prop('checked', false);
             $('#priceInput').val('');
             $('#quantityInput').val('');
+        });
+
+        $(document).on('click', '.deleteButton', function () {
+            $(this).closest('tr').remove();
         });
     });
 </script>
