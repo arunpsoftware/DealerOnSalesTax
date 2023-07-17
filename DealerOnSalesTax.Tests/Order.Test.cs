@@ -41,7 +41,7 @@ public class Tests
         Order order = new Order(cartItems);
         string receipt = order.GetReceipt();
 
-        string expectedReceipt = "Book: 24.98 (2 @ 12.49)\nMusic CD: 16.49\nChocolate bar: 0.85\nSales Taxes: 1.50\nTotal: 42.32\n";
+        string expectedReceipt = $"Book: 24.98 (2 @ 12.49){Environment.NewLine}Music CD: 16.49{Environment.NewLine}Chocolate bar: 0.85{Environment.NewLine}Sales Taxes: 1.50{Environment.NewLine}Total: 42.32{Environment.NewLine}";
 
         Assert.AreEqual(receipt, expectedReceipt);
     }
@@ -61,7 +61,7 @@ public class Tests
         Order order = new Order(cartItems);
         string receipt = order.GetReceipt();
 
-        string expectedReceipt = "Imported box of chocolates: 10.50\nImported bottle of perfume: 54.65\nSales Taxes: 7.65\nTotal: 65.15\n";
+        string expectedReceipt = $"Imported box of chocolates: 10.50{Environment.NewLine}Imported bottle of perfume: 54.65{Environment.NewLine}Sales Taxes: 7.65{Environment.NewLine}Total: 65.15{Environment.NewLine}";
 
         Assert.AreEqual(receipt, expectedReceipt);
     }
@@ -87,7 +87,7 @@ public class Tests
         Order order = new Order(cartItems);
         string receipt = order.GetReceipt();
 
-        string expectedReceipt = "Imported bottle of perfume: 32.19\nBottle of perfume: 20.89\nPacket of headache pills: 9.75\nImported box of chocolates: 23.70 (2 @ 11.85)\nSales Taxes: 7.30\nTotal: 86.53\n";
+        string expectedReceipt = $"Imported bottle of perfume: 32.19{Environment.NewLine}Bottle of perfume: 20.89{Environment.NewLine}Packet of headache pills: 9.75{Environment.NewLine}Imported box of chocolates: 23.70 (2 @ 11.85){Environment.NewLine}Sales Taxes: 7.30{Environment.NewLine}Total: 86.53{Environment.NewLine}";
 
         Assert.AreEqual(receipt, expectedReceipt);
     }
